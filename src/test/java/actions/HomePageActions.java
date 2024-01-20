@@ -3,6 +3,9 @@ package actions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import locators.HomePageLocators;
 import utils.Helper;
@@ -48,7 +51,17 @@ public class HomePageActions {
 	}
 	
 	public void verify_errormessage(String expectedError)	{
-		String actualError = homepageLocators.errorMessage.getText();
+		//verify the error message can appear on email or password 
+		//check if the element exist first by using findElements
+		String actualError;
+		if(homepageLocators.errorEmailElement.size() > 0)
+		{
+			actualError = homepageLocators.errorMessage_Email.getText();
+		}else
+		{
+			actualError = homepageLocators.errorMessage_Password.getText();
+		}
+		
 		actualError = actualError.replaceAll("\n", "").replaceAll("\r", "");
 		assertEquals(expectedError, actualError);
 	}
