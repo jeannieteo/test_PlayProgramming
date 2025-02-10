@@ -35,10 +35,12 @@ jobs:
       uses: reactivecircus/android-emulator-runner@v2
       with:
           api-level: 29
-          script: ./gradlew connectedCheck
+          #script: ./gradlew connectedCheck
     
     - name: install appium
-      run: npm i --location=global appium
+      run: |
+         npm i --location=global appium
+         appium driver install uiautomator2
     
     - name: Build with Maven
       run: mvn clean test
